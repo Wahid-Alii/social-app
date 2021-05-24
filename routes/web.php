@@ -27,3 +27,5 @@ Route::get('/admin', function(){
 });
 
 Route::get('admin/users', [AdminUsersController::class, 'index']);
+Route::get('admin/users/create', [AdminUsersController::class, 'create']);
+Route::post('admin/users/store', [AdminUsersController::class, 'store'])->name('users.store');
