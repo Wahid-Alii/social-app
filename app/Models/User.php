@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Role;
+use App\Models\Photo;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -46,5 +47,9 @@ class User extends Authenticatable
     ];
     public function role(){
         return $this->belongsTo(Role::class, 'role_id'); // also can write => ('App\Models\Role')
+    }
+
+    public function photo(){
+        return $this->belongsTo(Photo::class, 'photo_id');
     }
 }
