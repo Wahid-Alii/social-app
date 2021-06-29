@@ -30,7 +30,12 @@
         @error('email')
         is-invalid
         @enderror
-        " name="email">
+        " name="email" value="{{old('email')}}">
+        <div>
+            @error('email')
+                <span class="text-danger">{{$message}}</span>
+            @enderror
+        </div>
     </div>
 
     <div class="form-group col-sm-6">
@@ -40,7 +45,7 @@
         is-invalid
         @enderror
         " value="{{old('name')}}">
-            <option value="">-- Choose Option --</option>
+            <option value="null">-- Choose Option --</option>
             @foreach ($roles as $role)
             <option value="{{$role->id}}">{{$role->name}}</option>
             @endforeach
@@ -54,7 +59,7 @@
             is-invalid
            @enderror
             " name="is_active" >
-                <option value=""></option>
+                <option value="null"></option>
                 <option value='0'>Not Active</option>
                 <option value='1'>Active</option>
             </select>
@@ -76,11 +81,4 @@
 
     <button type="submit" class="btn btn-primary">Create User</button>
   </form>
-
-
-      {{-- {{array(
-          1=>'Active',
-          0=>'Not active',
-      )}} --}}
-      {{-- v-model="allowMultiple" --}}
 @endsection

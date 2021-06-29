@@ -14,6 +14,7 @@ class AddPhotoIdToUsers extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
+            // $table->foreignId('photo_id')->constrained()->onDelete('cascade');
             $table->string('photo_id')->nullable();
         });
     }

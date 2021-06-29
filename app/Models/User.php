@@ -45,8 +45,9 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
     public function role(){
-        return $this->belongsTo(Role::class, 'role_id'); // also can write => ('App\Models\Role')
+        return $this->belongsTo(Role::class ); // also can write => ('App\Models\Role')
     }
 
     public function photo(){

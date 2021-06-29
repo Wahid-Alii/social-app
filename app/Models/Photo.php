@@ -11,4 +11,12 @@ class Photo extends Model
     protected $fillable=[
         'file'
     ];
+
+    //  public function getFileAttribute($value) {
+    //     return asset('storage/Media/' . $value);
+    //     }
 }
+
+// if (strpos($value, 'https://') !== FALSE || strpos($value, 'http://') !== FALSE) {
+//     return $value;
+// }

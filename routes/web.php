@@ -29,3 +29,5 @@ Route::get('/admin', function(){
 Route::get('/admin/users', [AdminUsersController::class, 'index'])->name('users.index');
 Route::get('/admin/users/create', [AdminUsersController::class, 'create'])->name('users.create');
 Route::post('/admin/users/store', [AdminUsersController::class, 'store'])->name('users.store');
+Route::get('/admin/users/{user}/edit', [AdminUsersController::class, 'edit'])->name('users.edit');
+Route::patch('/admin/users/{user}/update', [AdminUsersController::class, 'update'])->name('users.update');

@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UsersRequest;
+use App\Models\Photo;
 use App\Models\Role;
 use App\Models\User;
-use App\Models\Photo;
 use Illuminate\Http\Request;
-use App\Http\Requests\UsersRequest;
 
 class AdminUsersController extends Controller
 {
@@ -18,7 +18,8 @@ class AdminUsersController extends Controller
     public function index()
     {
         $users = User::all();
-        return view('admin.users.index', compact('users'));
+        $roles = Role::all();
+        return view('admin.users.index', compact('users', 'roles'));
     }
 
     /**
@@ -28,8 +29,10 @@ class AdminUsersController extends Controller
      */
     public function create()
     {
-            $roles = Role::all();
-        return view('admin.users.create', compact('roles'));
+        $roles = Role::all();
+        return view('admin.users.create', [
+            'roles' => $roles,
+        ]);
     }
 
     /**
@@ -40,27 +43,25 @@ class AdminUsersController extends Controller
      */
     public function store(UsersRequest $request)
     {
-        $input= $request->all();
+        $input = $request->all();
 
         if ($file = $request->file('photo_id')) {
-            $name = time().'-'. $file->getClientOriginalName();
-            $file->storeAs('Media', $name);
+            $name = time() . '-' . $file->getClientOriginalName();
+            $file->move(public_path('media'), $name);
             $photo = Photo::create([
-                'file'=>$name,
+                'file' => $name,
             ]);
-            $input['photo_id']= $photo->id;
+            $input['photo_id'] = $photo->id;
         }
 
-            $input['password'] = bcrypt($request->password);
-            User::create($input);
+        $input['password'] = bcrypt($request->password);
+        User::create($input);
 
-            return redirect('/admin/users');
-
+        return redirect('/admin/users');
 
         // User::create($request->all());
         //  return $request->all();
     }
-
     /**
      * Display the specified resource.
      *
@@ -78,9 +79,10 @@ class AdminUsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(User $user)
     {
-        //
+        $roles = Role::all();
+        return view('admin.users.edit', compact('user', 'roles'));
     }
 
     /**
@@ -92,7 +94,25 @@ class AdminUsersController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $user = User::FindOrFail($id);
+
+        $input = $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255'],
+            'role_id' => 'required',
+            'is_active' => 'required',
+        ]);
+        if ($file = $request->file('photo_id')) {
+            $name = time() . '-' . $file->getClientOriginalName();
+            $file->move(public_path('media'), $name);
+            $photo = Photo::create([
+                'file' => $name,
+            ]);
+            $input['photo_id'] = $photo->id;
+        }
+
+        $user->update($input);
+        return redirect('/admin/users');
     }
 
     /**
