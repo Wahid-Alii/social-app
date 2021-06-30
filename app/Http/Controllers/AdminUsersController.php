@@ -123,6 +123,9 @@ class AdminUsersController extends Controller
      */
     public function destroy($id)
     {
-        //
+            $user = User::FindOrFail($id);
+            unlink(public_path().'/media/' . $user->photo->file);
+            $user->delete();
+            return redirect()->route('users.index')->with('delete','User Deleted Successfully');
     }
 }

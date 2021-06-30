@@ -90,7 +90,7 @@
             @error('password')
             is-invalid
             @enderror
-            "  name="password">
+            "  name="password" >
         </div>
 
     <button type="submit" class="btn btn-primary">Update User</button>
