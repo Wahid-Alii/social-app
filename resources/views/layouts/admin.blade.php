@@ -41,7 +41,7 @@
 
       <!-- Nav Item - Dashboard -->
       <li class="nav-item active">
-        <a class="nav-link" href="index.html">
+        <a class="nav-link" href="/admin">
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>Dashboard</span></a>
       </li>
@@ -76,8 +76,8 @@
         </a>
         <div id="collapsePosts" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            <a class="collapse-item" href="buttons.html">All Posts</a>
-            <a class="collapse-item" href="cards.html">Create Post</a>
+            <a class="collapse-item" href="{{route('post')}}">All Posts</a>
+            <a class="collapse-item" href="{{route('post.create')}}">Create Post</a>
           </div>
         </div>
       </li>
